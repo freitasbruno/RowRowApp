@@ -12,6 +12,7 @@ public class MainTestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_test);
+        setTitle(R.string.title_activity_main_test);
     }
 
     Intent intent;
