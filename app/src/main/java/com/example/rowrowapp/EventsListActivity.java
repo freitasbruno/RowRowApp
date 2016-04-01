@@ -2,7 +2,10 @@ package com.example.rowrowapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,16 +17,24 @@ public class EventsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_events_list);
         setTitle(R.string.title_activity_event_list);
 
-        // 1. pass context and data to the custom adapter
+        // Create adapted passing the relevant events
         EventListArrayAdapter adapter = new EventListArrayAdapter(this, generateData());
 
-        // 2. Get ListView from activity_main.xml
-        ListView listView = (ListView) findViewById(R.id.listview);
+        // Get ListView from activity_events_list.xml
+        final ListView listView = (ListView) findViewById(R.id.listview);
 
-        // 3. setListAdapter
+        // setListAdapter
         if (listView != null) {
             listView.setAdapter(adapter);
-            listView.getFirstVisiblePosition();
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // When clicked, show a toast with the TextView text
+                    Event event = (Event)listView.getItemAtPosition(position);
+                    String toastStr = "ID: " + event.getId() + " - " + event.getTitle();
+                    Toast.makeText(getApplicationContext(), toastStr, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
